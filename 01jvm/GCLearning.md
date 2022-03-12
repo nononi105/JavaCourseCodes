@@ -1,4 +1,4 @@
-##SerialGC
+## SerialGC
 
 配置命令：<u>-XX:+UseSerialGC</u>
 
@@ -11,7 +11,7 @@
 <u>-XX:+UseParNewGC</u>改进版本的SerialGC（并行回收年轻代），可以配合CMS使用。
 
 ---
-##Parallel GC
+## Parallel GC
 
 配置命令：
 <u>-XX:+UseParallelGC 
@@ -27,8 +27,8 @@
 通过作业1可以看出并行GC进行一次垃圾收集的时间要明显少于串行GC，在堆内存较大时能比串行GC条件下生成更多的对象，有更高的吞吐量。
 
 ---
-##CMS GC
-###Mostly Concurrent Mark and Sweep Garbage Collector
+## CMS GC
+### Mostly Concurrent Mark and Sweep Garbage Collector
 
 配置命令：<u> -XX:+UseConcMarkSweepGC</u>
 
@@ -59,8 +59,8 @@ CMS: 64M\*GC线程数4\*13/10 = 332.8M
 
 ---
 
-##G1 GC
-###Garbage-First
+## G1 GC  
+### Garbage-First
 
 配置命令：<u> -XX:+UseG1GC -XX:MaxGCPauseMillis=50</u>
 
