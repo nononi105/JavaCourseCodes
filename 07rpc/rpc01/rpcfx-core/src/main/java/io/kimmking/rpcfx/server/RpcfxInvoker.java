@@ -9,13 +9,20 @@ import io.kimmking.rpcfx.api.RpcfxResponse;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class RpcfxInvoker {
 
     private RpcfxResolver resolver;
 
+    private HashMap<String, Class<?>> serviceContext;
+
     public RpcfxInvoker(RpcfxResolver resolver){
         this.resolver = resolver;
+    }
+
+    public RpcfxInvoker(HashMap<String, Class<?>> serviceContext) {
+        this.serviceContext = serviceContext;
     }
 
     public RpcfxResponse invoke(RpcfxRequest request) {
@@ -23,16 +30,17 @@ public class RpcfxInvoker {
         String serviceClass = request.getServiceClass();
 
         // 作业1：改成泛型和反射
-        Object service = resolver.resolve(serviceClass);//this.applicationContext.getBean(serviceClass);
+//        Object service = resolver.resolve(serviceClass);//this.applicationContext.getBean(serviceClass);
+        Class<?> service = this.serviceContext.get(serviceClass);
 
         try {
-            Method method = resolveMethodFromClass(service.getClass(), request.getMethod());
-            Object result = method.invoke(service, request.getParams()); // dubbo, fastjson,
+            Method method = resolveMethodFromClass(service, request.getMethod());
+            Object result = method.invoke(service.newInstance(), request.getParams()); // dubbo, fastjson,
             // 两次json序列化能否合并成一个
             response.setResult(JSON.toJSONString(result, SerializerFeature.WriteClassName));
             response.setStatus(true);
             return response;
-        } catch ( IllegalAccessException | InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
 
             // 3.Xstream
 

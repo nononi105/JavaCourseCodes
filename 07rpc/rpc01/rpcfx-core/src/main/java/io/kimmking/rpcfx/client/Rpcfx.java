@@ -43,7 +43,7 @@ public final class Rpcfx {
 
         // 0. 替换动态代理 -> 字节码生成
         return (T) Proxy.newProxyInstance(Rpcfx.class.getClassLoader(), new Class[]{serviceClass}, new RpcfxInvocationHandler(serviceClass, url, filters));
-
+        //
     }
 
     public static class RpcfxInvocationHandler implements InvocationHandler {

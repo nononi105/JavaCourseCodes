@@ -1,4 +1,4 @@
-package io.kimmking.rpcfx.demo.provider;
+package io.kimmking.rpcfx.demo.provider.service;
 
 import io.kimmking.rpcfx.demo.api.Order;
 import io.kimmking.rpcfx.demo.api.OrderService;
